@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pacarku</title>
+  <meta name="description" content="Kumpulan puisi dan foto kenangan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Layar pembuka -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__heart">&#10084;</div>
+    <p class="loader__text">untukmu</p>
+  </div>
+
+  <!-- Partikel kelopak -->
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- Indikator progres scroll -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- Navigasi -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__brand" data-bind="hero.judul">Pacarku</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#puisi">Puisi</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#momen">Momen</a></li>
+      <li><a href="#penutup">Penutup</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" id="heroBg"></div>
+      <div class="hero__content">
+        <p class="hero__small reveal" data-bind="hero.kecil"></p>
+        <h1 class="hero__title" id="heroTitle" data-bind="hero.judul"></h1>
+        <p class="hero__sub reveal" data-delay="600" data-bind="hero.subjudul"></p>
+      </div>
+      <a href="#pembuka" class="scroll-hint" aria-label="Gulir ke bawah">
+        <span>gulir</span>
+        <i></i>
+      </a>
+    </section>
+
+    <!-- KUTIPAN PEMBUKA -->
+    <section class="intro" id="pembuka">
+      <div class="container">
+        <span class="ornament reveal">&#10087;</span>
+        <blockquote class="intro__quote" id="introQuote"></blockquote>
+        <p class="intro__author reveal" data-bind="pembuka.penulis"></p>
+      </div>
+    </section>
+
+    <!-- PUISI -->
+    <section class="poems" id="puisi">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-head__num">01</span>
+          <h2>Puisi</h2>
+          <p>Kata-kata yang kutulis saat memikirkanmu.</p>
+        </header>
+        <div class="poems__list" id="poemList"></div>
+      </div>
+    </section>
+
+    <!-- GALERI -->
+    <section class="gallery" id="galeri">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-head__num">02</span>
+          <h2>Galeri</h2>
+          <p>Potongan-potongan waktu yang ingin kusimpan selamanya.</p>
+        </header>
+        <div class="gallery__grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- MOMEN -->
+    <section class="timeline" id="momen">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-head__num">03</span>
+          <h2>Momen</h2>
+          <p>Jejak langkah kita, satu per satu.</p>
+        </header>
+        <div class="timeline__wrap" id="timelineWrap">
+          <div class="timeline__line"><div class="timeline__fill" id="timelineFill"></div></div>
+          <ol class="timeline__list" id="timelineList"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="closing" id="penutup">
+      <div class="container closing__inner">
+        <span class="ornament reveal">&#10087;</span>
+        <h2 class="closing__title reveal" data-bind="penutup.judul"></h2>
+        <p class="closing__msg reveal" data-delay="200" data-bind="penutup.pesan"></p>
+        <p class="closing__sign reveal" data-delay="400" data-bind="penutup.tandaTangan"></p>
+        <button class="heart-btn reveal" data-delay="600" id="heartBtn" aria-label="Kirim cinta">&#10084;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p data-bind="footer"></p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+    <button class="lightbox__close" id="lbClose" aria-label="Tutup">&times;</button>
+    <button class="lightbox__nav lightbox__prev" id="lbPrev" aria-label="Sebelumnya">&#8249;</button>
+    <figure class="lightbox__figure">
+      <div class="lightbox__media" id="lbMedia"></div>
+      <figcaption id="lbCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__next" id="lbNext" aria-label="Berikutnya">&#8250;</button>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
