@@ -37,7 +37,27 @@
     var value = get(node.getAttribute("data-bind"));
     if (typeof value === "string") node.textContent = value;
   });
-  if (data.hero && data.hero.judul) document.title = data.hero.judul;
+  if (data.hero && data.hero.judul) document.title = "Untuk " + data.hero.judul;
+
+  /* ---------- Penghitung hari bersama ---------- */
+  var since = $("#heroSince");
+  var jadian = data.hero && data.hero.jadian;
+  var parts = jadian ? jadian.split("-").map(Number) : [];
+  if (parts.length === 3) {
+    var start = new Date(parts[0], parts[1] - 1, parts[2]);
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var days = Math.round((today - start) / 864e5);
+    var tgl = start.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+    since.textContent = "";
+    since.appendChild(el("span", null, "bersama sejak " + tgl));
+    if (days >= 0) {
+      since.appendChild(el("span", "hero__dot", "\u2764"));
+      since.appendChild(el("span", null, days.toLocaleString("id-ID") + " hari"));
+    }
+  } else {
+    since.remove();
+  }
 
   /* ---------- Hero ---------- */
   var heroTitle = $("#heroTitle");

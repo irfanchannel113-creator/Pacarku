@@ -18,9 +18,11 @@
 window.SITE_DATA = {
   // ---------- Bagian pembuka (hero) ----------
   hero: {
-    kecil: "untukmu, di purnama kesembilan",
-    judul: "Pacarku",
+    kecil: "untuk pacarku",
+    judul: "Cindie",
+    namaLengkap: "Cindie Ovi Rivianti",
     subjudul: "Kumpulan kata dan potongan kenangan yang tak ingin kulupa.",
+    jadian: "2026-01-13", // format TAHUN-BULAN-TANGGAL; dipakai untuk penghitung hari
     foto: "assets/images/full/taman-bunga.jpg"
   },
 
@@ -81,7 +83,7 @@ window.SITE_DATA = {
 
   // ---------- Penutup ----------
   penutup: {
-    judul: "Selamat sembilan bulan, sayang.",
+    judul: "Selamat sembilan bulan, Cindie.",
     pesan:
       "Terima kasih untuk setiap tawa, sabar, dan peluk yang kau berikan. Semoga purnama-purnama berikutnya tetap kita lalui berdua.",
     tandaTangan: "Dariku, untukmu"
