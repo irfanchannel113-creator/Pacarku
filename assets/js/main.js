@@ -47,14 +47,19 @@
     var start = new Date(parts[0], parts[1] - 1, parts[2]);
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var days = Math.round((today - start) / 864e5);
     var tgl = start.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-    since.textContent = "";
-    since.appendChild(el("span", null, "bersama sejak " + tgl));
-    if (days >= 0) {
-      since.appendChild(el("span", "hero__dot", "\u2764"));
-      since.appendChild(el("span", null, days.toLocaleString("id-ID") + " hari"));
-    }
+    // Selisih dalam bulan penuh + sisa hari
+    var months = (today.getFullYear() - start.getFullYear()) * 12 + today.getMonth() - start.getMonth();
+    if (today.getDate() < start.getDate()) months--;
+    var anchor = new Date(start.getFullYear(), start.getMonth() + months, start.getDate());
+    var restDays = Math.round((today - anchor) / 864e5);
+    var ago;
+    if (months < 0) ago = "";
+    else if (months === 0 && restDays === 0) ago = "tepat hari ini";
+    else if (restDays === 0) ago = "tepat " + months + " bulan yang lalu";
+    else if (months === 0) ago = restDays + " hari yang lalu";
+    else ago = months + " bulan " + restDays + " hari yang lalu";
+    since.textContent = tgl + (ago ? ", " + ago + "." : "");
   } else {
     since.remove();
   }
