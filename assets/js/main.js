@@ -329,6 +329,51 @@
     touchX = null;
   });
 
+  /* ---------- Hati muncul di mana pun diklik ---------- */
+  var HEART_COLORS = ["#c0566f", "#e8899e", "#f1c9d1", "#d98a9c", "#b8935a"];
+  var activeHearts = 0;
+
+  function spawnHeart(x, y, o) {
+    if (activeHearts > 60 || !document.body.animate) return;
+    activeHearts++;
+    var h = el("span", "click-heart");
+    h.style.left = x + "px";
+    h.style.top = y + "px";
+    h.style.background = o.color;
+    document.body.appendChild(h);
+    var anim = h.animate([
+      { transform: "translate(0, 0) scale(" + o.from + ") rotate(0deg)", opacity: 1 },
+      { transform: "translate(" + o.dx * 0.5 + "px, " + o.dy * 0.5 + "px) scale(" + (o.from + o.to) / 2 + ") rotate(" + o.rot / 2 + "deg)", opacity: 1, offset: 0.55 },
+      { transform: "translate(" + o.dx + "px, " + o.dy + "px) scale(" + o.to + ") rotate(" + o.rot + "deg)", opacity: 0 }
+    ], { duration: o.duration, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" });
+    anim.onfinish = function () { h.remove(); activeHearts--; };
+  }
+
+  document.addEventListener("pointerdown", function (e) {
+    if (e.button) return;
+    var x = e.clientX, y = e.clientY;
+    if (reduceMotion) {
+      spawnHeart(x, y, { color: HEART_COLORS[0], from: 0.6, to: 1.6, dx: 0, dy: -20, rot: 0, duration: 700 });
+      return;
+    }
+    // Satu hati utama yang terus membesar sambil melayang naik
+    spawnHeart(x, y, { color: HEART_COLORS[0], from: 0.4, to: 4.5, dx: 0, dy: -110, rot: 0, duration: 1800 });
+    // Hati-hati kecil yang menyebar lalu ikut membesar
+    for (var i = 0; i < 6; i++) {
+      var angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
+      var dist = 50 + Math.random() * 90;
+      spawnHeart(x, y, {
+        color: HEART_COLORS[1 + Math.floor(Math.random() * (HEART_COLORS.length - 1))],
+        from: 0.2 + Math.random() * 0.3,
+        to: 1.4 + Math.random() * 1.8,
+        dx: Math.cos(angle) * dist,
+        dy: Math.sin(angle) * dist - 40,
+        rot: (Math.random() - 0.5) * 70,
+        duration: 1300 + Math.random() * 900
+      });
+    }
+  }, { passive: true });
+
   /* ---------- Tombol hati ---------- */
   $("#heartBtn").addEventListener("click", function (e) {
     var r = e.currentTarget.getBoundingClientRect();
