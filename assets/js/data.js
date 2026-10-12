@@ -4,91 +4,87 @@
  *  Cukup ubah teks di file ini; tampilan akan menyesuaikan.
  * ==========================================================
  *
- *  Foto: simpan file di folder  assets/images/
- *        lalu tulis path-nya, misalnya "assets/images/foto1.jpg".
- *        Jika `src` dikosongkan (""), akan tampil placeholder.
+ *  Foto: simpan dua versi di folder assets/images/
+ *        - full/  : ukuran besar (sisi terpanjang ±1600px), dipakai saat foto dibuka
+ *        - thumb/ : ukuran kecil (±760px), dipakai di grid galeri
+ *        `dimensi` = [lebar, tinggi] foto, supaya tata letak tidak melompat saat dimuat.
  *
  *  Puisi: tulis setiap baris sebagai satu item di dalam `baris`.
  *         Gunakan "" (string kosong) untuk jeda antarbait.
+ *
+ *  Bagian yang dikosongkan (misalnya momen: []) otomatis disembunyikan.
  */
 
 window.SITE_DATA = {
   // ---------- Bagian pembuka (hero) ----------
   hero: {
-    kecil: "untukmu, yang selalu",
+    kecil: "untukmu, di purnama kesembilan",
     judul: "Pacarku",
-    subjudul: "Kumpulan puisi dan potongan kenangan yang tak ingin kulupa.",
-    foto: "" // opsional: foto latar hero, contoh "assets/images/hero.jpg"
+    subjudul: "Kumpulan kata dan potongan kenangan yang tak ingin kulupa.",
+    foto: "assets/images/full/taman-bunga.jpg"
   },
 
   // ---------- Kutipan pembuka ----------
   pembuka: {
     kutipan:
-      "Ada hal-hal yang tak sanggup kuucapkan, maka kutuliskan. Ada hal-hal yang tak sanggup kutuliskan, maka kusimpan dalam gambar.",
-    penulis: "— Nama Kamu"
+      "Sembilan bulan mungkin terdengar singkat, tapi cukup untuk membuatku yakin bahwa ke mana pun aku pergi, pulangku adalah kamu.",
+    penulis: ""
   },
 
   // ---------- Puisi ----------
   puisi: [
     {
-      judul: "Judul Puisi Pertama",
-      tanggal: "Januari 2026",
+      judul: "Sembilan Purnama",
+      tanggal: "",
+      foto: "assets/images/full/prambanan-berdua.jpg",
       baris: [
-        "Baris pertama puisi ditulis di sini,",
-        "baris kedua menyusul perlahan,",
+        "Sembilan purnama telah anggun kita eja,",
+        "Melukis asmara pada kanvas cakrawala,",
+        "Terima kasih telah sudi menjadi pelita,",
+        "Menemani jiwaku mengarungi semesta.",
         "",
-        "bait kedua dimulai setelah baris kosong,",
-        "dan berakhir di sini."
-      ]
-    },
-    {
-      judul: "Judul Puisi Kedua",
-      tanggal: "Februari 2026",
-      baris: [
-        "Contoh baris puisi,",
-        "yang nanti diganti",
-        "dengan tulisanmu sendiri."
-      ]
-    },
-    {
-      judul: "Judul Puisi Ketiga",
-      tanggal: "Maret 2026",
-      baris: [
-        "Satu puisi lagi",
-        "sebagai contoh tata letak,",
+        "Kau dekap erat segala rapuh di raga,",
+        "Menghapus lara dengan setitik asa,",
+        "Sembilan bulan kau rajut untaian makna,",
+        "Meneduhkan kalbu yang sempat dahaga.",
         "",
-        "tambahkan atau hapus",
-        "sesuai kebutuhan."
+        "Kini kurapalkan doa pada Sang Pencipta,",
+        "Biar cinta ini tak sekadar di waktu yang fana,",
+        "Namun hingga napas tiba di penghujung masa,",
+        "Genggam tanganku, menepilah bersamaku selamanya."
       ]
     }
   ],
 
   // ---------- Galeri foto ----------
-  // ukuran: "normal" | "tinggi" | "lebar"  (mengatur bentuk kotak di grid)
   galeri: [
-    { src: "", keterangan: "Keterangan foto 1", ukuran: "tinggi" },
-    { src: "", keterangan: "Keterangan foto 2", ukuran: "normal" },
-    { src: "", keterangan: "Keterangan foto 3", ukuran: "normal" },
-    { src: "", keterangan: "Keterangan foto 4", ukuran: "lebar" },
-    { src: "", keterangan: "Keterangan foto 5", ukuran: "normal" },
-    { src: "", keterangan: "Keterangan foto 6", ukuran: "tinggi" },
-    { src: "", keterangan: "Keterangan foto 7", ukuran: "normal" },
-    { src: "", keterangan: "Keterangan foto 8", ukuran: "normal" }
+    { src: "assets/images/full/taman-bunga.jpg", thumb: "assets/images/thumb/taman-bunga.jpg", dimensi: [1200, 800], keterangan: "Di antara bunga-bunga, kamu tetap yang paling cantik" },
+    { src: "assets/images/full/prambanan-menoleh.jpg", thumb: "assets/images/thumb/prambanan-menoleh.jpg", dimensi: [1200, 1600], keterangan: "Senyum yang menoleh di Prambanan" },
+    { src: "assets/images/full/selfie-biru.jpg", thumb: "assets/images/thumb/selfie-biru.jpg", dimensi: [1440, 1080], keterangan: "Biru yang paling kusuka" },
+    { src: "assets/images/full/cermin-pink.jpg", thumb: "assets/images/thumb/cermin-pink.jpg", dimensi: [1200, 1600], keterangan: "Kita, di balik cermin" },
+    { src: "assets/images/full/prambanan-candi.jpg", thumb: "assets/images/thumb/prambanan-candi.jpg", dimensi: [1200, 1600], keterangan: "Sekokoh candi, seanggun senja" },
+    { src: "assets/images/full/cahaya-wayang.jpg", thumb: "assets/images/thumb/cahaya-wayang.jpg", dimensi: [900, 1600], keterangan: "Bermandikan cahaya" },
+    { src: "assets/images/full/pintu-tua.jpg", thumb: "assets/images/thumb/pintu-tua.jpg", dimensi: [1200, 1600], keterangan: "Di depan pintu tua" },
+    { src: "assets/images/full/kota-tua.jpg", thumb: "assets/images/thumb/kota-tua.jpg", dimensi: [900, 1600], keterangan: "Menyusuri kota berdua" },
+    { src: "assets/images/full/prambanan-bersandar.jpg", thumb: "assets/images/thumb/prambanan-bersandar.jpg", dimensi: [1200, 1600], keterangan: "Sore yang hangat" },
+    { src: "assets/images/full/bawah-pohon.jpg", thumb: "assets/images/thumb/bawah-pohon.jpg", dimensi: [900, 1600], keterangan: "Teduh, seperti kamu" },
+    { src: "assets/images/full/cahaya-batik.jpg", thumb: "assets/images/thumb/cahaya-batik.jpg", dimensi: [1200, 1600], keterangan: "Ditimpa cahaya" },
+    { src: "assets/images/full/teknik-geologi.jpg", thumb: "assets/images/thumb/teknik-geologi.jpg", dimensi: [901, 1600], keterangan: "Cemberut pun tetap lucu" },
+    { src: "assets/images/full/kamar-ungu.jpg", thumb: "assets/images/thumb/kamar-ungu.jpg", dimensi: [901, 1600], keterangan: "Senyum yang selalu kutunggu" },
+    { src: "assets/images/full/filter-lucu.jpg", thumb: "assets/images/thumb/filter-lucu.jpg", dimensi: [1600, 1200], keterangan: "Dan yang ini... biar jadi rahasia kita" }
   ],
 
   // ---------- Momen / linimasa ----------
-  momen: [
-    { tanggal: "00 Bulan 2025", judul: "Pertama kali bertemu", cerita: "Ceritakan singkat momen ini." },
-    { tanggal: "00 Bulan 2025", judul: "Kencan pertama", cerita: "Ceritakan singkat momen ini." },
-    { tanggal: "00 Bulan 2026", judul: "Hari ini", cerita: "Dan cerita kita masih terus berjalan." }
-  ],
+  // Kosong = bagian Momen disembunyikan. Contoh isi:
+  // { tanggal: "12 Januari 2026", judul: "Pertama kali bertemu", cerita: "..." }
+  momen: [],
 
   // ---------- Penutup ----------
   penutup: {
-    judul: "Terima kasih telah menjadi rumah.",
+    judul: "Selamat sembilan bulan, sayang.",
     pesan:
-      "Tulis pesan penutup di sini. Paragraf ini akan muncul di bagian akhir halaman, sebelum footer.",
-    tandaTangan: "Dengan sepenuh hati, Nama Kamu"
+      "Terima kasih untuk setiap tawa, sabar, dan peluk yang kau berikan. Semoga purnama-purnama berikutnya tetap kita lalui berdua.",
+    tandaTangan: "Dariku, untukmu"
   },
 
   footer: "Dibuat dengan sepenuh hati · 2026"

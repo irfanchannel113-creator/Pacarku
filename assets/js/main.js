@@ -71,6 +71,18 @@
   var poemList = $("#poemList");
   (data.puisi || []).forEach(function (p) {
     var card = el("article", "poem");
+    var wrap = card;
+    if (p.foto) {
+      wrap = el("div", "poem-feature");
+      var pic = el("figure", "poem-feature__photo");
+      var pimg = el("img");
+      pimg.src = p.foto;
+      pimg.alt = p.judul || "";
+      pimg.loading = "lazy";
+      pic.appendChild(pimg);
+      wrap.appendChild(pic);
+      wrap.appendChild(card);
+    }
     if (p.tanggal) card.appendChild(el("span", "poem__date", p.tanggal));
     card.appendChild(el("h3", "poem__title", p.judul || ""));
     var body = el("div", "poem__body");
@@ -86,7 +98,7 @@
       body.appendChild(span);
     });
     card.appendChild(body);
-    poemList.appendChild(card);
+    poemList.appendChild(wrap);
   });
 
   /* ---------- Galeri ---------- */
@@ -94,19 +106,21 @@
   var photos = data.galeri || [];
   photos.forEach(function (ph, i) {
     var fig = el("figure", "photo");
-    if (ph.ukuran === "tinggi") fig.classList.add("photo--tinggi");
-    if (ph.ukuran === "lebar") fig.classList.add("photo--lebar");
-    fig.style.margin = "0";
-    fig.style.transitionDelay = (i % 4) * 90 + "ms";
+    fig.style.transitionDelay = (i % 3) * 90 + "ms";
     fig.tabIndex = 0;
     fig.setAttribute("role", "button");
     fig.setAttribute("aria-label", "Buka foto: " + (ph.keterangan || "foto " + (i + 1)));
 
     if (ph.src) {
       var img = el("img");
-      img.src = ph.src;
+      img.src = ph.thumb || ph.src;
       img.alt = ph.keterangan || "";
       img.loading = "lazy";
+      img.decoding = "async";
+      if (ph.dimensi) {
+        img.width = ph.dimensi[0];
+        img.height = ph.dimensi[1];
+      }
       fig.appendChild(img);
     } else {
       fig.appendChild(placeholder("Foto " + (i + 1)));
@@ -130,8 +144,23 @@
     tlList.appendChild(li);
   });
 
+  /* ---------- Sembunyikan bagian yang kosong ---------- */
+  function hideSection(id, isEmpty) {
+    if (!isEmpty) return;
+    var sec = document.getElementById(id);
+    if (sec) sec.remove();
+    var link = $('.nav__links a[href="#' + id + '"]');
+    if (link) link.parentNode.remove();
+  }
+  hideSection("puisi", !(data.puisi || []).length);
+  hideSection("galeri", !photos.length);
+  hideSection("momen", !(data.momen || []).length);
+  $$("[data-bind]").forEach(function (node) {
+    if (!node.textContent.trim() && !node.id) node.remove();
+  });
+
   /* ---------- Animasi muncul saat digulir ---------- */
-  var revealTargets = $$(".reveal, .poem, .photo, .moment");
+  var revealTargets = $$(".reveal, .poem, .poem-feature__photo, .photo, .moment");
   $$(".reveal[data-delay]").forEach(function (n) {
     n.style.transitionDelay = n.getAttribute("data-delay") + "ms";
   });
@@ -184,9 +213,11 @@
     quoteWords.forEach(function (w, i) { w.classList.toggle("is-lit", reduceMotion || i < lit); });
 
     // Garis linimasa terisi
-    var tr = tlWrap.getBoundingClientRect();
-    var tProgress = (vh * 0.6 - tr.top) / tr.height;
-    tlFill.style.transform = "scaleY(" + Math.max(0, Math.min(1, tProgress)) + ")";
+    if (tlWrap && document.body.contains(tlWrap)) {
+      var tr = tlWrap.getBoundingClientRect();
+      var tProgress = (vh * 0.6 - tr.top) / tr.height;
+      tlFill.style.transform = "scaleY(" + Math.max(0, Math.min(1, tProgress)) + ")";
+    }
 
     // Tautan aktif
     var current = -1;
